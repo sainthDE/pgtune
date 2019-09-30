@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: de.sainth.pgtune
+---
+testFramework: kotlintest
+sourceLanguage: kotlin
