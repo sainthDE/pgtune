@@ -7,17 +7,19 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.DescribeSpec
 import io.kotlintest.specs.FunSpec
 import io.kotlintest.specs.Test
+import io.micronaut.http.client.RxHttpClient
+import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.annotation.MicronautTest
 
 @MicronautTest
-class MemoryTest : DescribeSpec() {
+class MemoryTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
     init {
         describe("Memory division test") {
             mapOf(
                     Pair(Memory(1, SizeUnit.TB), 4) to Memory(256, SizeUnit.GB),
                     Pair(Memory(1, SizeUnit.KB), 2) to Memory(512, SizeUnit.B),
                     Pair(Memory(16, SizeUnit.GB), 16) to Memory(1, SizeUnit.GB),
-                    Pair(Memory(1, SizeUnit.TB), 1000) to Memory(1, SizeUnit.GB),
+                    Pair(Memory(1, SizeUnit.TB), 1024) to Memory(1, SizeUnit.GB),
                     Pair(Memory(16, SizeUnit.MB), 4) to Memory(4, SizeUnit.MB)
             ).forEach { (input, expected) ->
                 it("${input.first} / ${input.second}= $expected") {
