@@ -37,6 +37,12 @@ class MaintenanceWorkMemTest(@Client("/") private val client: RxHttpClient) : De
                     (MaintenanceWorkMem(systemConfiguration).maintenanceWorkMem == Memory(2, SizeUnit.GB)).shouldBe(true)
                 }
             }
+            it("when osType == Windows then 2GB-1MB is maximum maintenanceWorkMem") {
+                val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
+                every { systemConfiguration.osType } returns OperatingSystem.Windows
+                every { systemConfiguration.ram } returns Memory(512, SizeUnit.GB)
+                (MaintenanceWorkMem(systemConfiguration).maintenanceWorkMem == Memory(2, SizeUnit.GB).minus(Memory(1, SizeUnit.MB))).shouldBe(true)
+            }
         }
 
     }
