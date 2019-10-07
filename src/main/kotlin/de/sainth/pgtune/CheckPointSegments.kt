@@ -1,7 +1,7 @@
 package de.sainth.pgtune
 
 class CheckPointSegments(systemConfiguration: SystemConfiguration) : PgConfigurationParameter("checkpoint_segments") {
-    private val checkPointSegments: Int = when (systemConfiguration.dbApplication) {
+    val checkPointSegments: Int = when (systemConfiguration.dbApplication) {
         DbApplication.WEB -> 32
         DbApplication.OLTP -> 64
         DbApplication.DATA_WAREHOUSE -> 128
