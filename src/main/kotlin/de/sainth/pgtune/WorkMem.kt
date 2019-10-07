@@ -1,10 +1,5 @@
 package de.sainth.pgtune
 
-import de.sainth.pgadjust.DbApplication
-import de.sainth.pgadjust.Memory
-import de.sainth.pgadjust.SizeUnit
-import de.sainth.pgadjust.SystemConfiguration
-
 class WorkMem(systemConfiguration: SystemConfiguration,
               sharedBuffers: SharedBuffers,
               maxConnections: MaxConnections,

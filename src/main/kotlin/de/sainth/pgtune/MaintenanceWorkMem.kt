@@ -1,7 +1,5 @@
 package de.sainth.pgtune
 
-import de.sainth.pgadjust.*
-
 class MaintenanceWorkMem(systemConfiguration: SystemConfiguration) : PgConfigurationParameter("maintenance_work_mem") {
     private val maintenanceWorkMem: Memory
 

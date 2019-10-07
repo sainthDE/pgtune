@@ -1,7 +1,5 @@
 package de.sainth.pgtune
 
-import de.sainth.pgadjust.*
-
 class SharedBuffers(systemConfiguration: SystemConfiguration) : PgConfigurationParameter("shared_buffers") {
     val sharedBuffers: Memory
 

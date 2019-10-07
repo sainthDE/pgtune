@@ -1,4 +1,4 @@
-package de.sainth.pgadjust
+package de.sainth.pgtune
 
 import javax.validation.constraints.Min
 
@@ -9,12 +9,12 @@ data class Memory(@get:Min(1) val memory: Long,
     }
 
     fun divide(divisor: Int): Memory {
-        val mem = this.asBytes() / divisor;
+        val mem = this.asBytes() / divisor
         return optimizeUnit(mem)
     }
 
     fun multiply(multiplicator: Int): Memory {
-        val mem = this.asBytes() * multiplicator;
+        val mem = this.asBytes() * multiplicator
         return optimizeUnit(mem)
     }
 

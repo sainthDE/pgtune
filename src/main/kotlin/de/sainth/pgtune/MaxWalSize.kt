@@ -1,8 +1,5 @@
 package de.sainth.pgtune
 
-import de.sainth.pgadjust.*
-import java.lang.IllegalArgumentException
-
 class MaxWalSize(systemConfiguration: SystemConfiguration) : PgConfigurationParameter("max_wal_size") {
     private val maxWalSize: Memory = when (systemConfiguration.dbApplication) {
         DbApplication.WEB -> Memory(2, SizeUnit.GB)

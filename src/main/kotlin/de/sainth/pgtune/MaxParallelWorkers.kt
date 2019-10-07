@@ -1,9 +1,5 @@
 package de.sainth.pgtune
 
-import de.sainth.pgadjust.PostgresVersion
-import de.sainth.pgadjust.SystemConfiguration
-import java.lang.IllegalArgumentException
-
 class MaxParallelWorkers(systemConfiguration: SystemConfiguration) : PgConfigurationParameter("max_parallel_workers") {
     private val maxParallelWorkersPerGather: Int = systemConfiguration.cpus?.toInt() ?: 8
 

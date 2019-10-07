@@ -1,10 +1,6 @@
 package de.sainth.pgtune
 
-import de.sainth.pgadjust.Memory
-import de.sainth.pgadjust.SizeUnit
-import de.sainth.pgadjust.SystemConfiguration
-
-class WalBuffers(systemConfiguration: SystemConfiguration, sharedBuffers: SharedBuffers) : PgConfigurationParameter("wal_buffers") {
+class WalBuffers(sharedBuffers: SharedBuffers) : PgConfigurationParameter("wal_buffers") {
     private val walBuffers: Memory
 
     init {

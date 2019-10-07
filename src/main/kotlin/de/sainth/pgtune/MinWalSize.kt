@@ -1,8 +1,5 @@
 package de.sainth.pgtune
 
-import de.sainth.pgadjust.*
-import java.lang.IllegalArgumentException
-
 class MinWalSize(systemConfiguration: SystemConfiguration) : PgConfigurationParameter("min_wal_size") {
     private val minWalSize: Memory = when (systemConfiguration.dbApplication) {
         DbApplication.WEB -> Memory(1, SizeUnit.GB)

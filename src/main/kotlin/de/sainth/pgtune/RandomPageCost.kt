@@ -1,8 +1,5 @@
 package de.sainth.pgtune
 
-import de.sainth.pgadjust.DataStorage
-import de.sainth.pgadjust.SystemConfiguration
-
 class RandomPageCost(systemConfiguration: SystemConfiguration) : PgConfigurationParameter("random_page_cost") {
     private val randomPageCost: Double = when (systemConfiguration.dataStorage) {
         DataStorage.HDD -> 4.0

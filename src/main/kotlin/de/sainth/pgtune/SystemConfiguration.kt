@@ -1,4 +1,4 @@
-package de.sainth.pgadjust
+package de.sainth.pgtune
 
 import javax.validation.Valid
 import javax.validation.constraints.Min

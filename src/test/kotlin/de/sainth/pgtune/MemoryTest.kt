@@ -1,12 +1,7 @@
 package de.sainth.pgtune
 
-import de.sainth.pgadjust.Memory
-import de.sainth.pgadjust.SizeUnit
-import io.kotlintest.matchers.string.shouldStartWith
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.DescribeSpec
-import io.kotlintest.specs.FunSpec
-import io.kotlintest.specs.Test
 import io.micronaut.http.client.RxHttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.annotation.MicronautTest

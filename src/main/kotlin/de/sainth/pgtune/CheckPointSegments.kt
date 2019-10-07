@@ -1,10 +1,5 @@
 package de.sainth.pgtune
 
-import de.sainth.pgadjust.DbApplication
-import de.sainth.pgadjust.PostgresVersion
-import de.sainth.pgadjust.SystemConfiguration
-import java.lang.IllegalArgumentException
-
 class CheckPointSegments(systemConfiguration: SystemConfiguration) : PgConfigurationParameter("checkpoint_segments") {
     private val checkPointSegments: Int = when (systemConfiguration.dbApplication) {
         DbApplication.WEB -> 32
