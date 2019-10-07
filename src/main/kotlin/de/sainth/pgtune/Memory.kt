@@ -22,6 +22,12 @@ data class Memory(@get:Min(1) val memory: Long,
         return optimizeUnit(this.asBytes() - minuend.asBytes())
     }
 
+    override fun equals(other: Any?): Boolean {
+        if(other == null) return false
+        if(!(other is Memory)) return false
+        return this.asBytes() == other.asBytes()
+    }
+
     private fun asBytes(): Long {
         return memory * unit.bytes
     }
