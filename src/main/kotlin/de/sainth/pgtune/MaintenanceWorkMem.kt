@@ -1,7 +1,7 @@
 package de.sainth.pgtune
 
 class MaintenanceWorkMem(systemConfiguration: SystemConfiguration) : PgConfigurationParameter("maintenance_work_mem") {
-    private val maintenanceWorkMem: Memory
+    val maintenanceWorkMem: Memory
 
     init {
         val mem = when (systemConfiguration.dbApplication) {
