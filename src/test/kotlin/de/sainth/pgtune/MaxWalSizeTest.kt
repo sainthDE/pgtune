@@ -29,23 +29,23 @@ class MaxWalSizeTest(@Client("/") private val client: RxHttpClient) : DescribeSp
             dbVersions.forEach {
                 it("when dbApplication == WEB then minWalSize is 2GB") {
                     every { systemConfiguration.dbApplication } returns DbApplication.WEB
-                    MaxWalSize(systemConfiguration).maxWalSize.shouldBe(Memory(2, SizeUnit.GB))
+                    MaxWalSize(systemConfiguration).maxWalSize shouldBe Memory(2, SizeUnit.GB)
                 }
                 it("when dbApplication == OLTP then minWalSize is 4GB") {
                     every { systemConfiguration.dbApplication } returns DbApplication.OLTP
-                    MaxWalSize(systemConfiguration).maxWalSize.shouldBe(Memory(4, SizeUnit.GB))
+                    MaxWalSize(systemConfiguration).maxWalSize shouldBe Memory(4, SizeUnit.GB)
                 }
                 it("when dbApplication == DATA_WAREHOUSE then minWalSize is 8GB") {
                     every { systemConfiguration.dbApplication } returns DbApplication.DATA_WAREHOUSE
-                    MaxWalSize(systemConfiguration).maxWalSize.shouldBe(Memory(8, SizeUnit.GB))
+                    MaxWalSize(systemConfiguration).maxWalSize shouldBe Memory(8, SizeUnit.GB)
                 }
                 it("when dbApplication == DESKTOP then minWalSize is 1GB") {
                     every { systemConfiguration.dbApplication } returns DbApplication.DESKTOP
-                    MaxWalSize(systemConfiguration).maxWalSize.shouldBe(Memory(1, SizeUnit.GB))
+                    MaxWalSize(systemConfiguration).maxWalSize shouldBe Memory(1, SizeUnit.GB)
                 }
                 it("when dbApplication == MIXED then minWalSize is 2GB") {
                     every { systemConfiguration.dbApplication } returns DbApplication.MIXED
-                    MaxWalSize(systemConfiguration).maxWalSize.shouldBe(Memory(2, SizeUnit.GB))
+                    MaxWalSize(systemConfiguration).maxWalSize shouldBe Memory(2, SizeUnit.GB)
                 }
             }
         }

@@ -18,26 +18,26 @@ class MemoryTest(@Client("/") private val client: RxHttpClient) : DescribeSpec()
                     Pair(Memory(16, SizeUnit.MB), 4) to Memory(4, SizeUnit.MB)
             ).forEach { (input, expected) ->
                 it("${input.first} / ${input.second}= $expected") {
-                    input.first.divide(input.second).shouldBe(expected)
+                    input.first.divide(input.second) shouldBe expected
                 }
             }
         }
 
         describe("Memory greater than") {
             it("test that 1TB > 1GB") {
-                Memory(1, SizeUnit.TB).greaterThan(Memory(1, SizeUnit.GB)).shouldBe(true)
+                Memory(1, SizeUnit.TB).greaterThan(Memory(1, SizeUnit.GB)) shouldBe true
             }
 
             it("test that NOT 1B > 1GB") {
-                Memory(1, SizeUnit.B).greaterThan(Memory(1, SizeUnit.GB)).shouldBe(false)
+                Memory(1, SizeUnit.B).greaterThan(Memory(1, SizeUnit.GB)) shouldBe false
             }
 
             it("test that 1TB + 1B > 1TB") {
-                Memory(SizeUnit.TB.bytes + 1, SizeUnit.B).greaterThan(Memory(1, SizeUnit.TB)).shouldBe(true)
+                Memory(SizeUnit.TB.bytes + 1, SizeUnit.B).greaterThan(Memory(1, SizeUnit.TB)) shouldBe true
             }
 
             it("test that NOT 1GB > 1024MB") {
-                Memory(1, SizeUnit.GB).greaterThan(Memory(1024, SizeUnit.MB)).shouldBe(false)
+                Memory(1, SizeUnit.GB).greaterThan(Memory(1024, SizeUnit.MB)) shouldBe false
             }
         }
     }
