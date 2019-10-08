@@ -1,7 +1,9 @@
 package de.sainth.pgtune
 
+import io.kotlintest.data.forall
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.DescribeSpec
+import io.kotlintest.tables.row
 import io.micronaut.http.client.RxHttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.annotation.MicronautTest
@@ -20,31 +22,17 @@ class MaxConnectionsTest(@Client("/") private val client: RxHttpClient) : Descri
             }
         }
         describe("if systemConfiguration.connections is null systemConfiguration.dbApplication.maxConnections will be used") {
-            val webConfiguration = mockk<SystemConfiguration>()
-            val oltpConfiguration = mockk<SystemConfiguration>()
-            val dataWarehouseConfiguration = mockk<SystemConfiguration>()
-            val desktopConfiguration = mockk<SystemConfiguration>()
-            val mixedConfiguration = mockk<SystemConfiguration>()
-            every { webConfiguration.connections } returns null
-            every { oltpConfiguration.connections } returns null
-            every { dataWarehouseConfiguration.connections } returns null
-            every { desktopConfiguration.connections } returns null
-            every { mixedConfiguration.connections } returns null
-            every { webConfiguration.dbApplication } returns DbApplication.WEB
-            every { oltpConfiguration.dbApplication } returns DbApplication.OLTP
-            every { dataWarehouseConfiguration.dbApplication } returns DbApplication.DATA_WAREHOUSE
-            every { desktopConfiguration.dbApplication } returns DbApplication.DESKTOP
-            every { mixedConfiguration.dbApplication } returns DbApplication.MIXED
-            mapOf(
-                    webConfiguration to DbApplication.WEB,
-                    oltpConfiguration to DbApplication.OLTP,
-                    dataWarehouseConfiguration to DbApplication.DATA_WAREHOUSE,
-                    desktopConfiguration to DbApplication.DESKTOP,
-                    mixedConfiguration to DbApplication.MIXED
-            ).forEach { (input, expected) ->
-                it("${input.dbApplication.maxConnections} == ${expected.maxConnections}") {
-                    MaxConnections(input).maxConnections shouldBe expected.maxConnections
-                }
+            val systemConfiguration = mockk<SystemConfiguration>()
+            every { systemConfiguration.connections } returns null
+            forall(
+                    row(DbApplication.WEB, DbApplication.WEB.maxConnections),
+                    row(DbApplication.OLTP, DbApplication.OLTP.maxConnections),
+                    row(DbApplication.DATA_WAREHOUSE, DbApplication.DATA_WAREHOUSE.maxConnections),
+                    row(DbApplication.DESKTOP, DbApplication.DESKTOP.maxConnections),
+                    row(DbApplication.MIXED, DbApplication.MIXED.maxConnections)
+            ) { dbApp, maxConnections ->
+                every { systemConfiguration.dbApplication } returns dbApp
+                MaxConnections(systemConfiguration).maxConnections shouldBe maxConnections
             }
         }
 

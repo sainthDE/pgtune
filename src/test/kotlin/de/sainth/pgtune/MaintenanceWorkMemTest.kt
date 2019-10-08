@@ -1,7 +1,9 @@
 package de.sainth.pgtune
 
+import io.kotlintest.data.forall
 import io.kotlintest.specs.DescribeSpec
 import io.kotlintest.shouldBe
+import io.kotlintest.tables.row
 import io.micronaut.http.client.RxHttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.annotation.MicronautTest
@@ -21,20 +23,28 @@ class MaintenanceWorkMemTest(@Client("/") private val client: RxHttpClient) : De
             }
             it("when dbApplication != DATA_WAREHOUSE then maintenanceWorkMem = ram / 16") {
                 val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
-                val applications = listOf(DbApplication.WEB, DbApplication.OLTP, DbApplication.DESKTOP, DbApplication.MIXED)
-                every { systemConfiguration.dbApplication } returnsMany applications
-                every { systemConfiguration.ram } returns Memory(8, SizeUnit.GB)
-                applications.forEach {
-                    (MaintenanceWorkMem(systemConfiguration).maintenanceWorkMem == Memory(512, SizeUnit.MB)) shouldBe true
+                val ram = Memory(8, SizeUnit.GB)
+                val result = ram.divide(16)
+                every { systemConfiguration.ram } returns ram
+                forall(row(DbApplication.WEB, result),
+                        row(DbApplication.OLTP, result),
+                        row(DbApplication.DESKTOP, result),
+                        row(DbApplication.MIXED, result)
+                ) { app, mem: Memory ->
+                    every { systemConfiguration.dbApplication } returns app
+                    (MaintenanceWorkMem(systemConfiguration).maintenanceWorkMem == mem) shouldBe true
                 }
             }
             it("when osType != Windows then 2GB is maximum maintenanceWorkMem") {
                 val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
-                val operatingSystems = listOf(OperatingSystem.Linux, OperatingSystem.MacOsX)
-                every { systemConfiguration.osType } returnsMany operatingSystems
+                val ram = Memory(2, SizeUnit.GB)
                 every { systemConfiguration.ram } returns Memory(512, SizeUnit.GB)
-                operatingSystems.forEach {
-                    (MaintenanceWorkMem(systemConfiguration).maintenanceWorkMem == Memory(2, SizeUnit.GB)) shouldBe true
+                forall(
+                        row(OperatingSystem.Linux, ram),
+                        row(OperatingSystem.MacOsX, ram)
+                ) { os, mem ->
+                    every { systemConfiguration.osType } returns os
+                    (MaintenanceWorkMem(systemConfiguration).maintenanceWorkMem == mem) shouldBe true
                 }
             }
             it("when osType == Windows then 2GB-1MB is maximum maintenanceWorkMem") {

@@ -1,9 +1,11 @@
 package de.sainth.pgtune
 
+import io.kotlintest.data.forall
 import io.kotlintest.matchers.doubles.plusOrMinus
 import io.kotlintest.specs.DescribeSpec
 import io.kotlintest.shouldBe
 import io.kotlintest.shouldThrow
+import io.kotlintest.tables.row
 import io.micronaut.http.client.RxHttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.annotation.MicronautTest
@@ -16,25 +18,15 @@ class CheckPointCompletionTargetTest(@Client("/") private val client: RxHttpClie
     init {
         describe("CheckPointCompletionTargetTest") {
             val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
-            it("when dbApplication == WEB then checkpointCompletionTarget is 0.7") {
-                every { systemConfiguration.dbApplication } returns DbApplication.WEB
-                CheckPointCompletionTarget(systemConfiguration).checkpointCompletionTarget shouldBe (0.7 plusOrMinus 1e-10)
-            }
-            it("when dbApplication == OLTP then checkpointCompletionTarget is 0.9") {
-                every { systemConfiguration.dbApplication } returns DbApplication.OLTP
-                CheckPointCompletionTarget(systemConfiguration).checkpointCompletionTarget shouldBe (0.9 plusOrMinus 1e-10)
-            }
-            it("when dbApplication == DATA_WAREHOUSE then checkpointCompletionTarget is 0.9") {
-                every { systemConfiguration.dbApplication } returns DbApplication.DATA_WAREHOUSE
-                CheckPointCompletionTarget(systemConfiguration).checkpointCompletionTarget shouldBe (0.9 plusOrMinus 1e-10)
-            }
-            it("when dbApplication == DESKTOP then checkpointCompletionTarget is 0.5") {
-                every { systemConfiguration.dbApplication } returns DbApplication.DESKTOP
-                CheckPointCompletionTarget(systemConfiguration).checkpointCompletionTarget shouldBe (0.5 plusOrMinus 1e-10)
-            }
-            it("when dbApplication == MIXED then checkpointCompletionTarget is 0.9") {
-                every { systemConfiguration.dbApplication } returns DbApplication.MIXED
-                CheckPointCompletionTarget(systemConfiguration).checkpointCompletionTarget shouldBe (0.9 plusOrMinus 1e-10)
+            forall(
+                    row(DbApplication.WEB, 0.7 plusOrMinus 1e-10),
+                    row(DbApplication.OLTP, 0.9 plusOrMinus 1e-10),
+                    row(DbApplication.DATA_WAREHOUSE, 0.9 plusOrMinus 1e-10),
+                    row(DbApplication.DESKTOP, 0.5 plusOrMinus 1e-10),
+                    row(DbApplication.MIXED, 0.9 plusOrMinus 1e-10)
+            ) { app, completionTarget ->
+                every { systemConfiguration.dbApplication } returns app
+                CheckPointCompletionTarget(systemConfiguration).checkpointCompletionTarget shouldBe completionTarget
             }
         }
     }

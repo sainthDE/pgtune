@@ -1,7 +1,9 @@
 package de.sainth.pgtune
 
+import io.kotlintest.data.forall
 import io.kotlintest.specs.DescribeSpec
 import io.kotlintest.shouldBe
+import io.kotlintest.tables.row
 import io.micronaut.http.client.RxHttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.annotation.MicronautTest
@@ -21,11 +23,17 @@ class SharedBuffersTest(@Client("/") private val client: RxHttpClient) : Describ
             }
             it("when dbApplication != DESKTOP then sharedBuffers = ram / 4") {
                 val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
-                val applications = listOf(DbApplication.WEB, DbApplication.OLTP, DbApplication.DATA_WAREHOUSE, DbApplication.MIXED)
-                every { systemConfiguration.dbApplication } returnsMany applications
-                every { systemConfiguration.ram } returns Memory(16, SizeUnit.GB)
-                applications.forEach {
-                    (SharedBuffers(systemConfiguration).sharedBuffers == Memory(4, SizeUnit.GB)) shouldBe true
+                val ram = Memory(16, SizeUnit.GB)
+                val result = ram.divide(4)
+                every { systemConfiguration.ram } returns ram
+                forall(
+                        row(DbApplication.WEB, result),
+                        row(DbApplication.OLTP, result),
+                        row(DbApplication.DATA_WAREHOUSE, result),
+                        row(DbApplication.MIXED, result)
+                ) { app, mem: Memory ->
+                    every { systemConfiguration.dbApplication } returns app
+                    (SharedBuffers(systemConfiguration).sharedBuffers == mem) shouldBe true
                 }
             }
             it("when osType == Windows then 512 MB is maximum of sharedBuffers") {

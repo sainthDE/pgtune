@@ -1,7 +1,9 @@
 package de.sainth.pgtune
 
+import io.kotlintest.data.forall
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.DescribeSpec
+import io.kotlintest.tables.row
 import io.micronaut.http.client.RxHttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.annotation.MicronautTest
@@ -10,16 +12,14 @@ import io.micronaut.test.annotation.MicronautTest
 class MemoryTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
     init {
         describe("Memory division test") {
-            mapOf(
-                    Pair(Memory(1, SizeUnit.TB), 4) to Memory(256, SizeUnit.GB),
-                    Pair(Memory(1, SizeUnit.KB), 2) to Memory(512, SizeUnit.B),
-                    Pair(Memory(16, SizeUnit.GB), 16) to Memory(1, SizeUnit.GB),
-                    Pair(Memory(1, SizeUnit.TB), 1024) to Memory(1, SizeUnit.GB),
-                    Pair(Memory(16, SizeUnit.MB), 4) to Memory(4, SizeUnit.MB)
-            ).forEach { (input, expected) ->
-                it("${input.first} / ${input.second}= $expected") {
-                    input.first.divide(input.second) shouldBe expected
-                }
+            forall(
+                    row(Pair(Memory(1, SizeUnit.TB), 4), Memory(256, SizeUnit.GB)),
+                    row(Pair(Memory(1, SizeUnit.KB), 2), Memory(512, SizeUnit.B)),
+                    row(Pair(Memory(16, SizeUnit.GB), 16), Memory(1, SizeUnit.GB)),
+                    row(Pair(Memory(1, SizeUnit.TB), 1024), Memory(1, SizeUnit.GB)),
+                    row(Pair(Memory(16, SizeUnit.MB), 4), Memory(4, SizeUnit.MB))
+            ) { input, expected ->
+                input.first.divide(input.second) shouldBe expected
             }
         }
 
