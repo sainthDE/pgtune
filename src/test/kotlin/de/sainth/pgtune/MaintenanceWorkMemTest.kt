@@ -19,7 +19,7 @@ class MaintenanceWorkMemTest(@Client("/") private val client: RxHttpClient) : De
                 val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
                 every { systemConfiguration.dbApplication } returns DbApplication.DATA_WAREHOUSE
                 every { systemConfiguration.ram } returns Memory(8, SizeUnit.GB)
-                (MaintenanceWorkMem(systemConfiguration).maintenanceWorkMem == Memory(1, SizeUnit.GB)) shouldBe true
+                MaintenanceWorkMem(systemConfiguration).maintenanceWorkMem shouldBe Memory(1, SizeUnit.GB)
             }
             it("when dbApplication != DATA_WAREHOUSE then maintenanceWorkMem = ram / 16") {
                 val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
@@ -32,7 +32,7 @@ class MaintenanceWorkMemTest(@Client("/") private val client: RxHttpClient) : De
                         row(DbApplication.MIXED, result)
                 ) { app, mem: Memory ->
                     every { systemConfiguration.dbApplication } returns app
-                    (MaintenanceWorkMem(systemConfiguration).maintenanceWorkMem == mem) shouldBe true
+                    MaintenanceWorkMem(systemConfiguration).maintenanceWorkMem shouldBe mem
                 }
             }
             it("when osType != Windows then 2GB is maximum maintenanceWorkMem") {
@@ -44,14 +44,14 @@ class MaintenanceWorkMemTest(@Client("/") private val client: RxHttpClient) : De
                         row(OperatingSystem.MacOsX, ram)
                 ) { os, mem ->
                     every { systemConfiguration.osType } returns os
-                    (MaintenanceWorkMem(systemConfiguration).maintenanceWorkMem == mem) shouldBe true
+                    MaintenanceWorkMem(systemConfiguration).maintenanceWorkMem shouldBe mem
                 }
             }
             it("when osType == Windows then 2GB-1MB is maximum maintenanceWorkMem") {
                 val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
                 every { systemConfiguration.osType } returns OperatingSystem.Windows
                 every { systemConfiguration.ram } returns Memory(512, SizeUnit.GB)
-                (MaintenanceWorkMem(systemConfiguration).maintenanceWorkMem == Memory(2, SizeUnit.GB).minus(Memory(1, SizeUnit.MB))) shouldBe true
+                MaintenanceWorkMem(systemConfiguration).maintenanceWorkMem shouldBe Memory(2, SizeUnit.GB).minus(Memory(1, SizeUnit.MB))
             }
         }
 

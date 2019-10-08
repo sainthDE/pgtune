@@ -19,7 +19,7 @@ class EffectiveCacheSizeTest(@Client("/") private val client: RxHttpClient) : De
                 val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
                 every { systemConfiguration.dbApplication } returns DbApplication.DESKTOP
                 every { systemConfiguration.ram } returns Memory(16, SizeUnit.GB)
-                (EffectiveCacheSize(systemConfiguration).effectiveCacheSize == Memory(4, SizeUnit.GB)) shouldBe true
+                EffectiveCacheSize(systemConfiguration).effectiveCacheSize shouldBe Memory(4, SizeUnit.GB)
             }
             it("when dbApplication != DESKTOP then effectiveCacheSize = 75% of ram") {
                 val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
@@ -33,7 +33,7 @@ class EffectiveCacheSizeTest(@Client("/") private val client: RxHttpClient) : De
                         row(DbApplication.MIXED, result)
                 ) { app, mem: Memory ->
                     every { systemConfiguration.dbApplication } returns app
-                    (EffectiveCacheSize(systemConfiguration).effectiveCacheSize == mem) shouldBe true
+                    EffectiveCacheSize(systemConfiguration).effectiveCacheSize shouldBe mem
                 }
             }
         }

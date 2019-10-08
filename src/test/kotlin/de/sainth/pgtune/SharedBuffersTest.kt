@@ -19,7 +19,7 @@ class SharedBuffersTest(@Client("/") private val client: RxHttpClient) : Describ
                 val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
                 every { systemConfiguration.dbApplication } returns DbApplication.DESKTOP
                 every { systemConfiguration.ram } returns Memory(16, SizeUnit.GB)
-                (SharedBuffers(systemConfiguration).sharedBuffers == Memory(1, SizeUnit.GB)) shouldBe true
+                SharedBuffers(systemConfiguration).sharedBuffers shouldBe Memory(1, SizeUnit.GB)
             }
             it("when dbApplication != DESKTOP then sharedBuffers = ram / 4") {
                 val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
@@ -33,7 +33,7 @@ class SharedBuffersTest(@Client("/") private val client: RxHttpClient) : Describ
                         row(DbApplication.MIXED, result)
                 ) { app, mem: Memory ->
                     every { systemConfiguration.dbApplication } returns app
-                    (SharedBuffers(systemConfiguration).sharedBuffers == mem) shouldBe true
+                    SharedBuffers(systemConfiguration).sharedBuffers shouldBe mem
                 }
             }
             it("when osType == Windows then 512 MB is maximum of sharedBuffers") {
@@ -41,14 +41,14 @@ class SharedBuffersTest(@Client("/") private val client: RxHttpClient) : Describ
                 every { systemConfiguration.dbApplication } returns DbApplication.DESKTOP
                 every { systemConfiguration.osType } returns OperatingSystem.Windows
                 every { systemConfiguration.ram } returns Memory(16, SizeUnit.GB)
-                (SharedBuffers(systemConfiguration).sharedBuffers == Memory(512, SizeUnit.MB)) shouldBe true
+                SharedBuffers(systemConfiguration).sharedBuffers shouldBe Memory(512, SizeUnit.MB)
             }
             it("when dbApplication == WEB, osType == Windows and ram == 1 GB then sharedBuffers should be 256MB ") {
                 val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
                 every { systemConfiguration.dbApplication } returns DbApplication.WEB
                 every { systemConfiguration.osType } returns OperatingSystem.Windows
                 every { systemConfiguration.ram } returns Memory(1, SizeUnit.GB)
-                (SharedBuffers(systemConfiguration).sharedBuffers == Memory(256, SizeUnit.MB)) shouldBe true
+                SharedBuffers(systemConfiguration).sharedBuffers shouldBe Memory(256, SizeUnit.MB)
             }
         }
     }
