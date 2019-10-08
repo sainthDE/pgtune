@@ -1,7 +1,7 @@
 package de.sainth.pgtune
 
 class MaxWalSize(systemConfiguration: SystemConfiguration) : PgConfigurationParameter("max_wal_size") {
-    private val maxWalSize: Memory = when (systemConfiguration.dbApplication) {
+    val maxWalSize: Memory = when (systemConfiguration.dbApplication) {
         DbApplication.WEB -> Memory(2, SizeUnit.GB)
         DbApplication.OLTP -> Memory(4, SizeUnit.GB)
         DbApplication.DATA_WAREHOUSE -> Memory(8, SizeUnit.GB)
