@@ -17,7 +17,8 @@ enum class PostgresVersion(val version: String) {
     V9_5("9.5"),
     V9_6("9.6"),
     V10("10"),
-    V11("11")
+    V11("11"),
+    V12("12")
 }
 
 enum class OperatingSystem(val fancyName: String) {
