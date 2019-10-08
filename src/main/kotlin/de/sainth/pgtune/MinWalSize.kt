@@ -1,7 +1,7 @@
 package de.sainth.pgtune
 
 class MinWalSize(systemConfiguration: SystemConfiguration) : PgConfigurationParameter("min_wal_size") {
-    private val minWalSize: Memory = when (systemConfiguration.dbApplication) {
+    val minWalSize: Memory = when (systemConfiguration.dbApplication) {
         DbApplication.WEB -> Memory(1, SizeUnit.GB)
         DbApplication.OLTP -> Memory(2, SizeUnit.GB)
         DbApplication.DATA_WAREHOUSE -> Memory(4, SizeUnit.GB)
