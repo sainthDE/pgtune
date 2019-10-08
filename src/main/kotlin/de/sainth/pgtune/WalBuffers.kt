@@ -1,14 +1,14 @@
 package de.sainth.pgtune
 
 class WalBuffers(sharedBuffers: SharedBuffers) : PgConfigurationParameter("wal_buffers") {
-    private val walBuffers: Memory
+    val walBuffers: Memory
 
     init {
 // Follow auto-tuning guideline for wal_buffers added in 9.1, where it's
 // set to 3% of shared_buffers up to a maximum of 16MB.
-        var walBuffersValue = sharedBuffers.sharedBuffers.divide(100).multiply(3)
+        var walBuffersValue = sharedBuffers.sharedBuffers.multiply(3).divide(100)
         val maxWalBuffer = Memory(16, SizeUnit.MB)
-        if (maxWalBuffer.greaterThan(walBuffersValue)) {
+        if (walBuffersValue.greaterThan(maxWalBuffer)) {
             walBuffersValue = maxWalBuffer
         }
         // It's nice of wal_buffers is an even 16MB if it's near that number. Since
