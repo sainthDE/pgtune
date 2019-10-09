@@ -4,7 +4,7 @@ class WorkMem(systemConfiguration: SystemConfiguration,
               sharedBuffers: SharedBuffers,
               maxConnections: MaxConnections,
               maxParallelWorkersPerGather: MaxParallelWorkersPerGather?) : PgConfigurationParameter("work_mem") {
-    private val workMem: Memory
+    val workMem: Memory
 
     init {
 
