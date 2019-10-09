@@ -10,7 +10,21 @@ data class SystemConfiguration(val dbVersion: PostgresVersion,
                                @get:Valid val ram: Memory,
                                @get:Min(1) val cpus: Short?,
                                @get:Min(1) val connections: Int?,
-                               val dataStorage: DataStorage)
+                               val dataStorage: DataStorage) {
+
+    override fun toString(): String {
+        return """
+            # PostgreSQL-Version: $dbVersion
+            # OS: $osType
+            # Application: $dbApplication
+            # Memory: $ram
+            # CPUs: $cpus
+            # Connections: $connections
+            # Storage: $dataStorage
+        """.trimIndent()
+    }
+
+}
 
 enum class PostgresVersion(val version: String) {
     V9_4("9.4"),
