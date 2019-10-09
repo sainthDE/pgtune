@@ -3,7 +3,7 @@ package de.sainth.pgtune.config
 class WorkMem(systemConfiguration: SystemConfiguration,
               sharedBuffers: SharedBuffers,
               maxConnections: MaxConnections,
-              maxParallelWorkersPerGather: MaxParallelWorkersPerGather?) : PgConfigurationParameter("work_mem") {
+              maxParallelWorkersPerGather: MaxParallelWorkersPerGather? = null) : PgConfigurationParameter("work_mem") {
     val workMem: Memory
 
     init {

@@ -26,7 +26,7 @@ class WorkMemTest(@Client("/") private val client: RxHttpClient) : DescribeSpec(
                 DbApplication.values().forEach {
                     dbApplication ->
                     every { systemConfiguration.dbApplication } returns dbApplication
-                    WorkMem(systemConfiguration, sharedBuffers, maxConnections, null).workMem shouldBe Memory(64, SizeUnit.KB)
+                    WorkMem(systemConfiguration, sharedBuffers, maxConnections).workMem shouldBe Memory(64, SizeUnit.KB)
                 }
             }
             it("workMem formulas work as expected without maxParallelWorkersPerGather") {
@@ -48,7 +48,7 @@ class WorkMemTest(@Client("/") private val client: RxHttpClient) : DescribeSpec(
                         row(DbApplication.MIXED, workMemValue.divide(2))
                 ) { dbApplication, expected ->
                     every { systemConfiguration.dbApplication } returns dbApplication
-                    WorkMem(systemConfiguration, sharedBuffers, maxConnections, null).workMem shouldBe expected
+                    WorkMem(systemConfiguration, sharedBuffers, maxConnections).workMem shouldBe expected
                 }
             }
             it("workMem formulas work as expected with maxParallelWorkersPerGather") {
