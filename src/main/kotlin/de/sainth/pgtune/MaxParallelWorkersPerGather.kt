@@ -4,10 +4,8 @@ class MaxParallelWorkersPerGather(systemConfiguration: SystemConfiguration) : Pg
     val maxParallelWorkersPerGather: Int = systemConfiguration.cpus?.div(2) ?: 2
 
     init {
-        if(systemConfiguration.dbVersion == PostgresVersion.V9_4 ||
-                systemConfiguration.dbVersion == PostgresVersion.V9_5) {
-            throw IllegalArgumentException("$name is not supported by PostgreSQL version ${systemConfiguration.dbVersion.version}")
-        }
+        require(!(systemConfiguration.dbVersion == PostgresVersion.V9_4 ||
+                systemConfiguration.dbVersion == PostgresVersion.V9_5)) { "$name is not supported by PostgreSQL version ${systemConfiguration.dbVersion.version}" }
     }
 
     override fun getParameterString(): String {
