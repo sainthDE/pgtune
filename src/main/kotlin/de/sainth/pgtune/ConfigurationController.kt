@@ -1,5 +1,6 @@
 package de.sainth.pgtune
 
+import de.sainth.pgtune.config.SystemConfiguration
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
