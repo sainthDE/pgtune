@@ -1,17 +1,15 @@
 package de.sainth.pgtune
 
 class MaxParallelWorkers(systemConfiguration: SystemConfiguration) : PgConfigurationParameter("max_parallel_workers") {
-    private val maxParallelWorkersPerGather: Int = systemConfiguration.cpus?.toInt() ?: 8
+    val maxParallelWorkers: Int = systemConfiguration.cpus?.toInt() ?: 8
 
     init {
-        if(systemConfiguration.dbVersion == PostgresVersion.V9_4 ||
-                systemConfiguration.dbVersion == PostgresVersion.V9_5||
-                systemConfiguration.dbVersion == PostgresVersion.V9_6) {
-            throw IllegalArgumentException("$name is not supported by PostgreSQL version ${systemConfiguration.dbVersion.version}")
-        }
+        require(!(systemConfiguration.dbVersion == PostgresVersion.V9_4 ||
+                systemConfiguration.dbVersion == PostgresVersion.V9_5 ||
+                systemConfiguration.dbVersion == PostgresVersion.V9_6)) { "$name is not supported by PostgreSQL version ${systemConfiguration.dbVersion.version}" }
     }
 
     override fun getParameterString(): String {
-        return "$maxParallelWorkersPerGather"
+        return "$maxParallelWorkers"
     }
 }
