@@ -18,8 +18,8 @@ data class SystemConfiguration(val dbVersion: PostgresVersion,
             # OS: $osType
             # Application: $dbApplication
             # Memory: $ram
-            # CPUs: $cpus
-            # Connections: $connections
+            # CPUs: ${cpus ?: "-"}
+            # Connections: ${connections ?: "-"}
             # Storage: $dataStorage
         """.trimIndent()
     }
