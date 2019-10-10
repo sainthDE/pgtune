@@ -25,6 +25,6 @@ class WorkMem(systemConfiguration: SystemConfiguration,
     }
 
     override fun getParameterString(): String {
-        return "$workMem"
+        return workMem.toString(SizeUnit.KB)
     }
 }

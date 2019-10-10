@@ -34,6 +34,10 @@ data class Memory(@get:Min(1) val memory: Long,
         return result
     }
 
+    fun toString(sizeUnit: SizeUnit): String {
+        return "${this.asBytes() / sizeUnit.bytes}$sizeUnit"
+    }
+
     override fun toString(): String {
         return "$memory$unit"
     }

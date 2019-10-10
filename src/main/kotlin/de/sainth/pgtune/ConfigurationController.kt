@@ -1,5 +1,6 @@
 package de.sainth.pgtune
 
+import de.sainth.pgtune.config.PostgresConfiguration
 import de.sainth.pgtune.config.SystemConfiguration
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Body
@@ -12,19 +13,7 @@ import javax.validation.constraints.NotNull
 open class ConfigurationController {
 
     @Post(produces = [MediaType.TEXT_PLAIN])
-    open fun generateConfiguration(@NotNull @Valid @Body systemConfiguration: SystemConfiguration): String {
-        return """
-            ['max_connections', maxConnections],
-            ['shared_buffers', this.formatValue(sharedBuffers)],
-            ['effective_cache_size', this.formatValue(effectiveCacheSize)],
-            ['maintenance_work_mem', this.formatValue(maintenanceWorkMem)],
-            ['checkpoint_completion_target', checkpointCompletionTarget],
-            ['wal_buffers', this.formatValue(walBuffers)],
-            ['default_statistics_target', defaultStatisticsTarget],
-            ['random_page_cost', randomPageCost],
-            ['effective_io_concurrency', effectiveIoConcurrency],
-            ['work_mem', this.formatValue(workMem)]
-        """.trimIndent()
-
-    }
+    open fun generateConfiguration(@NotNull @Valid @Body systemConfiguration: SystemConfiguration): String =
+            "$systemConfiguration\n\n" +
+                    PostgresConfiguration(systemConfiguration).getConfiguration()
 }

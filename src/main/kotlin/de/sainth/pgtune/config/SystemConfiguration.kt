@@ -14,7 +14,7 @@ data class SystemConfiguration(val dbVersion: PostgresVersion,
 
     override fun toString(): String {
         return """
-            # PostgreSQL-Version: $dbVersion
+            # PostgreSQL-Version: ${dbVersion.version}
             # OS: $osType
             # Application: $dbApplication
             # Memory: $ram
