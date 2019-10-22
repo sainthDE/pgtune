@@ -35,7 +35,7 @@ class MaxParallelWorkersPerGatherTest(@Client("/") private val client: RxHttpCli
                         row(PostgresVersion.V12, 10)
                 ) { dbVersion, cpus ->
                     every { systemConfiguration.dbVersion } returns dbVersion
-                    every { systemConfiguration.cpus } returns cpus.toShort()
+                    every { systemConfiguration.cores } returns cpus.toShort()
                     MaxParallelWorkersPerGather(systemConfiguration).maxParallelWorkersPerGather shouldBe (cpus / 2)
                 }
             }
@@ -48,7 +48,7 @@ class MaxParallelWorkersPerGatherTest(@Client("/") private val client: RxHttpCli
                         row(PostgresVersion.V12, 2)
                 ) { dbVersion, cpus ->
                     every { systemConfiguration.dbVersion } returns dbVersion
-                    every { systemConfiguration.cpus } returns null
+                    every { systemConfiguration.cores } returns null
                     MaxParallelWorkersPerGather(systemConfiguration).maxParallelWorkersPerGather shouldBe cpus
                 }
             }

@@ -8,7 +8,7 @@ data class SystemConfiguration(val dbVersion: PostgresVersion,
                                val osType: OperatingSystem,
                                val dbApplication: DbApplication,
                                @get:Valid val ram: Memory,
-                               @get:Min(1) val cpus: Short?,
+                               @get:Min(1) val cores: Short?,
                                @get:Min(1) val connections: Int?,
                                val dataStorage: DataStorage) {
 
@@ -18,7 +18,7 @@ data class SystemConfiguration(val dbVersion: PostgresVersion,
             # OS: $osType
             # Application: $dbApplication
             # Memory: $ram
-            # CPUs: ${cpus ?: "-"}
+            # CPUs: ${cores ?: "-"}
             # Connections: ${connections ?: "-"}
             # Storage: $dataStorage
         """.trimIndent()

@@ -33,7 +33,7 @@ class MaxWorkerProcessesTest(@Client("/") private val client: RxHttpClient) : De
                         row(PostgresVersion.V12, 5)
                 ) { dbVersion, cpus ->
                     every { systemConfiguration.dbVersion } returns dbVersion
-                    every { systemConfiguration.cpus } returns cpus.toShort()
+                    every { systemConfiguration.cores } returns cpus.toShort()
                     MaxWorkerProcesses(systemConfiguration).maxWorkerProcesses shouldBe cpus
                 }
             }
@@ -47,7 +47,7 @@ class MaxWorkerProcessesTest(@Client("/") private val client: RxHttpClient) : De
                         row(PostgresVersion.V12, 8)
                 ) { dbVersion, cpus ->
                     every { systemConfiguration.dbVersion } returns dbVersion
-                    every { systemConfiguration.cpus } returns null
+                    every { systemConfiguration.cores } returns null
                     MaxWorkerProcesses(systemConfiguration).maxWorkerProcesses shouldBe cpus
                 }
             }

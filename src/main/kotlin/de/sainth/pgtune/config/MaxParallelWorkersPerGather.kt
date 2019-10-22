@@ -1,7 +1,7 @@
 package de.sainth.pgtune.config
 
 class MaxParallelWorkersPerGather(systemConfiguration: SystemConfiguration) : PgConfigurationParameter("max_parallel_workers_per_gather") {
-    val maxParallelWorkersPerGather: Int = systemConfiguration.cpus?.div(2) ?: 2
+    val maxParallelWorkersPerGather: Int = systemConfiguration.cores?.div(2) ?: 2
 
     init {
         require(!(systemConfiguration.dbVersion == PostgresVersion.V9_4 ||
