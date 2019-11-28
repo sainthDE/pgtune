@@ -59,7 +59,7 @@ enum class SizeUnit(val bytes: Long) {
     override fun toString(): String {
         return when (this) {
             B -> "B"
-            KB -> "KB"
+            KB -> "kB"
             MB -> "MB"
             GB -> "GB"
             TB -> "TB"
