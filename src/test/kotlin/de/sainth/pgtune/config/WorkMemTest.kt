@@ -11,7 +11,7 @@ import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class WorkMemTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
+class WorkMemTest() : DescribeSpec() {
 
     init {
 //      workMemValue =  (ram - shared_buffers) / (3 * max_connections) / max_parallel_workers_per_gather

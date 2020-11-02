@@ -12,7 +12,7 @@ import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class PostgresConfigurationTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
+class PostgresConfigurationTest() : DescribeSpec() {
 
     init {
         describe("the resulting class depends on given dbVersion") {

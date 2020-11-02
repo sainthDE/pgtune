@@ -11,7 +11,7 @@ import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class MaintenanceWorkMemTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
+class MaintenanceWorkMemTest() : DescribeSpec() {
 
     init {
         describe("MaintenanceWorkMemTest") {

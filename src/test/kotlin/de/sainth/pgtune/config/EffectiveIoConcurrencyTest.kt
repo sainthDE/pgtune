@@ -11,7 +11,7 @@ import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class EffectiveIoConcurrencyTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
+class EffectiveIoConcurrencyTest() : DescribeSpec() {
 
     init {
         describe("EffectiveIoConcurrencyTest") {

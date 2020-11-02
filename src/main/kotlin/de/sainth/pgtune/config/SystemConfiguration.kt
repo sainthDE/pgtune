@@ -1,9 +1,10 @@
 package de.sainth.pgtune.config
 
+import io.micronaut.core.annotation.Introspected
 import javax.validation.Valid
 import javax.validation.constraints.Min
 
-
+@Introspected
 data class SystemConfiguration(val dbVersion: PostgresVersion,
                                val osType: OperatingSystem,
                                val dbApplication: DbApplication,

@@ -9,7 +9,7 @@ import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.annotation.MicronautTest
 
 @MicronautTest
-class MemoryTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
+class MemoryTest() : DescribeSpec() {
     init {
         describe("Memory division test") {
             forall(

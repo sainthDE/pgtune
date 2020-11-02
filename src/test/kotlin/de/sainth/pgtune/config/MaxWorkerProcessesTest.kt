@@ -12,7 +12,7 @@ import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class MaxWorkerProcessesTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
+class MaxWorkerProcessesTest() : DescribeSpec() {
 
     init {
         describe("MaxWorkerProcessesTest") {

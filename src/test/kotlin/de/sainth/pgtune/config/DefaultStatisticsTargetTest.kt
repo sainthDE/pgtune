@@ -11,7 +11,7 @@ import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class DefaultStatisticsTargetTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
+class DefaultStatisticsTargetTest() : DescribeSpec() {
 
     init {
         describe("DefaultStatisticsTargetTest") {

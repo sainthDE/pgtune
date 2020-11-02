@@ -11,7 +11,7 @@ import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class SharedBuffersTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
+class SharedBuffersTest() : DescribeSpec() {
 
     init {
         describe("SharedBuffersTest") {

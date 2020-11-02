@@ -12,7 +12,7 @@ import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class RandomPageCostTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
+class RandomPageCostTest() : DescribeSpec() {
 
     init {
         describe("RandomPageCostTest") {

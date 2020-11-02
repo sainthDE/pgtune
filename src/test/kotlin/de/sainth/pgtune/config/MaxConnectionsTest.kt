@@ -11,7 +11,7 @@ import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class MaxConnectionsTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
+class MaxConnectionsTest() : DescribeSpec() {
 
     init {
         describe("MaxConnectionsTest") {

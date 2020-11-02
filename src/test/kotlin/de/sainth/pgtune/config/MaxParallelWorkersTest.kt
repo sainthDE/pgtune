@@ -12,7 +12,7 @@ import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class MaxParallelWorkersTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
+class MaxParallelWorkersTest() : DescribeSpec() {
 
     init {
         describe("MaxParallelWorkersTest") {

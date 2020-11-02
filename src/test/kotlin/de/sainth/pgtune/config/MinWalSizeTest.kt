@@ -12,7 +12,7 @@ import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class MinWalSizeTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
+class MinWalSizeTest() : DescribeSpec() {
 
     init {
         describe("MinWalSizeTest") {

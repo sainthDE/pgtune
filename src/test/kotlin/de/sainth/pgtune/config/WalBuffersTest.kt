@@ -11,7 +11,7 @@ import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class WalBuffersTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
+class WalBuffersTest() : DescribeSpec() {
 
     init {
         describe("WalBuffersTest") {

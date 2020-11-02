@@ -12,7 +12,7 @@ import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class CheckPointSegmentsTest(@Client("/") private val client: RxHttpClient) : DescribeSpec() {
+class CheckPointSegmentsTest() : DescribeSpec() {
 
     init {
         describe("CheckPointSegmentsTest") {
