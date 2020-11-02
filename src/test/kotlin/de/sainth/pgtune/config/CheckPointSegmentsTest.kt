@@ -18,7 +18,7 @@ class CheckPointSegmentsTest() : DescribeSpec() {
         describe("CheckPointSegmentsTest") {
             it("when dbVersion != V9_4 then IllegalArgumentException is thrown") {
                 val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
-                val dbVersions = listOf(PostgresVersion.V9_5, PostgresVersion.V9_6, PostgresVersion.V10, PostgresVersion.V11, PostgresVersion.V12)
+                val dbVersions = listOf(PostgresVersion.V9_5, PostgresVersion.V9_6, PostgresVersion.V10, PostgresVersion.V11, PostgresVersion.V12, PostgresVersion.V13)
                 dbVersions.forEach { dbVersion ->
                     every { systemConfiguration.dbVersion } returns dbVersion
                     shouldThrow<IllegalArgumentException> {

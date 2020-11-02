@@ -32,7 +32,8 @@ class MaxParallelWorkersTest() : DescribeSpec() {
                 forall(
                         row(PostgresVersion.V10, 3),
                         row(PostgresVersion.V11, 4),
-                        row(PostgresVersion.V12, 5)
+                        row(PostgresVersion.V12, 5),
+                        row(PostgresVersion.V13, 5)
                 ) { dbVersion, cpus ->
                     every { systemConfiguration.dbVersion } returns dbVersion
                     every { systemConfiguration.cores } returns cpus.toShort()
@@ -44,7 +45,8 @@ class MaxParallelWorkersTest() : DescribeSpec() {
                 forall(
                         row(PostgresVersion.V10, 8),
                         row(PostgresVersion.V11, 8),
-                        row(PostgresVersion.V12, 8)
+                        row(PostgresVersion.V12, 8),
+                        row(PostgresVersion.V13, 8)
                 ) { dbVersion, cpus ->
                     every { systemConfiguration.dbVersion } returns dbVersion
                     every { systemConfiguration.cores } returns null

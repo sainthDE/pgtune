@@ -29,6 +29,8 @@ class PostgresConfigurationTest() : DescribeSpec() {
             PostgresConfiguration(systemConfiguration).shouldBeTypeOf<PostgresConfiguration.PostgresConfiguration11>()
             every { systemConfiguration.dbVersion } returns PostgresVersion.V12
             PostgresConfiguration(systemConfiguration).shouldBeTypeOf<PostgresConfiguration.PostgresConfiguration12>()
+            every { systemConfiguration.dbVersion } returns PostgresVersion.V13
+            PostgresConfiguration(systemConfiguration).shouldBeTypeOf<PostgresConfiguration.PostgresConfiguration13>()
         }
     }
 
