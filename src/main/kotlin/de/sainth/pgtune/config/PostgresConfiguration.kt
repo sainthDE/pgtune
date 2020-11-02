@@ -10,6 +10,7 @@ sealed class PostgresConfiguration {
                 PostgresVersion.V10 -> PostgresConfiguration10(systemConfiguration)
                 PostgresVersion.V11 -> PostgresConfiguration11(systemConfiguration)
                 PostgresVersion.V12 -> PostgresConfiguration12(systemConfiguration)
+                PostgresVersion.V13 -> PostgresConfiguration13(systemConfiguration)
             }
         }
     }
@@ -172,6 +173,40 @@ sealed class PostgresConfiguration {
     }
 
     class PostgresConfiguration12(systemConfiguration: SystemConfiguration) : PostgresConfiguration() {
+        private val maxConnections = MaxConnections(systemConfiguration)
+        private val sharedBuffers = SharedBuffers(systemConfiguration)
+        private val effectiveCacheSize = EffectiveCacheSize(systemConfiguration)
+        private val maintenanceWorkMem = MaintenanceWorkMem(systemConfiguration)
+        private val checkPointCompletionTarget = CheckPointCompletionTarget(systemConfiguration)
+        private val walBuffers = WalBuffers(sharedBuffers)
+        private val defaultStatisticsTarget = DefaultStatisticsTarget(systemConfiguration)
+        private val randomPageCost = RandomPageCost(systemConfiguration)
+        private val effectiveIoConcurrency = EffectiveIoConcurrency(systemConfiguration)
+        private val workMem = WorkMem(systemConfiguration, sharedBuffers, maxConnections)
+        private val minWalSize = MinWalSize(systemConfiguration)
+        private val maxWalSize = MaxWalSize(systemConfiguration)
+        private val maxWorkerProcesses = MaxWorkerProcesses(systemConfiguration)
+        private val maxParallelWorkersPerGather = MaxParallelWorkersPerGather(systemConfiguration)
+        private val maxParallelWorkers = MaxParallelWorkers(systemConfiguration)
+
+        override fun getConfiguration(): String = "${maxConnections.toPgConfigurationLine()}\n" +
+                "${sharedBuffers.toPgConfigurationLine()}\n" +
+                "${effectiveCacheSize.toPgConfigurationLine()}\n" +
+                "${maintenanceWorkMem.toPgConfigurationLine()}\n" +
+                "${checkPointCompletionTarget.toPgConfigurationLine()}\n" +
+                "${walBuffers.toPgConfigurationLine()}\n" +
+                "${defaultStatisticsTarget.toPgConfigurationLine()}\n" +
+                "${randomPageCost.toPgConfigurationLine()}\n" +
+                "${effectiveIoConcurrency.toPgConfigurationLine()}\n" +
+                "${workMem.toPgConfigurationLine()}\n" +
+                "${minWalSize.toPgConfigurationLine()}\n" +
+                "${maxWalSize.toPgConfigurationLine()}\n" +
+                "${maxWorkerProcesses.toPgConfigurationLine()}\n" +
+                "${maxParallelWorkersPerGather.toPgConfigurationLine()}\n" +
+                "${maxParallelWorkers.toPgConfigurationLine()}\n"
+    }
+
+    class PostgresConfiguration13(systemConfiguration: SystemConfiguration) : PostgresConfiguration() {
         private val maxConnections = MaxConnections(systemConfiguration)
         private val sharedBuffers = SharedBuffers(systemConfiguration)
         private val effectiveCacheSize = EffectiveCacheSize(systemConfiguration)
