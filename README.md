@@ -51,7 +51,7 @@ The instructions for the IDE setup can be found in the [official micronaut docum
 
 ## Contributing
 
-Since pgtune is currently part of a project work of my studies, no external contributions can be accepted at the moment. But that will change in the future. 
+External contribution are welcome.
 
 ## License
 
