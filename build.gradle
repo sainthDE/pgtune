@@ -32,6 +32,7 @@ configurations {
 }
 
 dependencies {
+    annotationProcessor("io.micronaut:micronaut-inject-java:2.1.2")
     kapt("io.micronaut.openapi:micronaut-openapi")
     implementation("io.micronaut:micronaut-validation")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
@@ -40,6 +41,7 @@ dependencies {
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.swagger.core.v3:swagger-annotations")
+    runtime("io.micronaut:micronaut-core:2.1.2")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     kaptTest "io.micronaut:micronaut-inject-java"
