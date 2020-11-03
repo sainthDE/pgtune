@@ -1,13 +1,8 @@
 package de.sainth.pgtune.config
 
-import io.kotlintest.data.forall
 import io.kotlintest.matchers.types.shouldBeTypeOf
 import io.kotlintest.specs.DescribeSpec
-import io.kotlintest.shouldBe
-import io.kotlintest.tables.row
-import io.micronaut.http.client.RxHttpClient
-import io.micronaut.http.client.annotation.Client
-import io.micronaut.test.annotation.MicronautTest
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import io.mockk.every
 import io.mockk.mockk
 

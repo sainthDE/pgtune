@@ -3,11 +3,7 @@ package de.sainth.pgtune
 import de.sainth.pgtune.config.*
 import io.kotlintest.specs.DescribeSpec
 import io.kotlintest.shouldBe
-import io.micronaut.http.HttpRequest
-import io.micronaut.http.HttpStatus
-import io.micronaut.http.client.RxHttpClient
-import io.micronaut.http.client.annotation.Client
-import io.micronaut.test.annotation.MicronautTest
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 
 @MicronautTest
 class ConfigurationControllerTest(private val configurationController: ConfigurationController) : DescribeSpec() {
