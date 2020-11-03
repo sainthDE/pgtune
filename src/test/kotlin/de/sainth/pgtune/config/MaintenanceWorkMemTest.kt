@@ -1,15 +1,16 @@
 package de.sainth.pgtune.config
 
-import io.kotlintest.data.forall
-import io.kotlintest.shouldBe
-import io.kotlintest.specs.DescribeSpec
-import io.kotlintest.tables.row
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.data.forAll
+import io.kotest.data.row
+import io.kotest.matchers.shouldBe
+import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class MaintenanceWorkMemTest() : DescribeSpec() {
+class MaintenanceWorkMemTest : DescribeSpec() {
 
     init {
         describe("MaintenanceWorkMemTest") {
@@ -24,7 +25,7 @@ class MaintenanceWorkMemTest() : DescribeSpec() {
                 val ram = Memory(8, SizeUnit.GB)
                 val result = ram.divide(16)
                 every { systemConfiguration.ram } returns ram
-                forall(row(DbApplication.WEB, result),
+                forAll(row(DbApplication.WEB, result),
                         row(DbApplication.OLTP, result),
                         row(DbApplication.DESKTOP, result),
                         row(DbApplication.MIXED, result)
@@ -37,7 +38,7 @@ class MaintenanceWorkMemTest() : DescribeSpec() {
                 val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
                 val ram = Memory(2, SizeUnit.GB)
                 every { systemConfiguration.ram } returns Memory(512, SizeUnit.GB)
-                forall(
+                forAll(
                         row(OperatingSystem.Linux, ram),
                         row(OperatingSystem.MacOsX, ram)
                 ) { os, mem ->

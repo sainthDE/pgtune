@@ -1,15 +1,15 @@
 package de.sainth.pgtune.config
 
-import io.kotlintest.data.forall
-import io.kotlintest.shouldBe
-import io.kotlintest.specs.DescribeSpec
-import io.kotlintest.tables.row
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.data.forAll
+import io.kotest.data.row
+import io.kotest.matchers.shouldBe
+import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class WorkMemTest() : DescribeSpec() {
+class WorkMemTest : DescribeSpec() {
 
     init {
 //      workMemValue =  (ram - shared_buffers) / (3 * max_connections) / max_parallel_workers_per_gather
@@ -21,8 +21,7 @@ class WorkMemTest() : DescribeSpec() {
                 every { systemConfiguration.ram } returns Memory(200, SizeUnit.MB)
                 every { sharedBuffers.sharedBuffers } returns Memory(50, SizeUnit.MB)
                 every { maxConnections.maxConnections } returns 1000
-                DbApplication.values().forEach {
-                    dbApplication ->
+                DbApplication.values().forEach { dbApplication ->
                     every { systemConfiguration.dbApplication } returns dbApplication
                     WorkMem(systemConfiguration, sharedBuffers, maxConnections).workMem shouldBe Memory(64, SizeUnit.KB)
                 }
@@ -38,7 +37,7 @@ class WorkMemTest() : DescribeSpec() {
                 every { systemConfiguration.ram } returns ramValue
                 every { sharedBuffers.sharedBuffers } returns sharedBuffersValue
                 every { maxConnections.maxConnections } returns maxConnectionsValue
-                forall(
+                forAll(
                         row(DbApplication.WEB, workMemValue),
                         row(DbApplication.OLTP, workMemValue),
                         row(DbApplication.DATA_WAREHOUSE, workMemValue.divide(2)),
@@ -63,7 +62,7 @@ class WorkMemTest() : DescribeSpec() {
                 every { sharedBuffers.sharedBuffers } returns sharedBuffersValue
                 every { maxConnections.maxConnections } returns maxConnectionsValue
                 every { maxParallelWorkersPerGather.maxParallelWorkersPerGather } returns maxParallelWorkersPerGatherValue
-                forall(
+                forAll(
                         row(DbApplication.WEB, workMemValue),
                         row(DbApplication.OLTP, workMemValue),
                         row(DbApplication.DATA_WAREHOUSE, workMemValue.divide(2)),

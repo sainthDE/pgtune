@@ -1,16 +1,17 @@
 package de.sainth.pgtune.config
 
-import io.kotlintest.data.forall
-import io.kotlintest.shouldBe
-import io.kotlintest.specs.DescribeSpec
-import io.kotlintest.tables.row
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.data.forAll
+import io.kotest.data.row
+import io.kotest.matchers.shouldBe
+import io.micronaut.test.extensions.kotest.annotation.MicronautTest
+
 
 @MicronautTest
-class MemoryTest() : DescribeSpec() {
+class MemoryTest : DescribeSpec() {
     init {
         describe("Memory division test") {
-            forall(
+            forAll(
                     row(Pair(Memory(1, SizeUnit.TB), 4), Memory(256, SizeUnit.GB)),
                     row(Pair(Memory(1, SizeUnit.KB), 2), Memory(512, SizeUnit.B)),
                     row(Pair(Memory(16, SizeUnit.GB), 16), Memory(1, SizeUnit.GB)),

@@ -1,16 +1,17 @@
 package de.sainth.pgtune.config
 
-import io.kotlintest.data.forall
-import io.kotlintest.shouldBe
-import io.kotlintest.shouldThrow
-import io.kotlintest.specs.DescribeSpec
-import io.kotlintest.tables.row
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.data.forAll
+import io.kotest.data.row
+import io.kotest.matchers.shouldBe
+import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class MaxParallelWorkersPerGatherTest() : DescribeSpec() {
+class MaxParallelWorkersPerGatherTest : DescribeSpec() {
 
     init {
         describe("MaxParallelWorkersPerGatherTest") {
@@ -26,7 +27,7 @@ class MaxParallelWorkersPerGatherTest() : DescribeSpec() {
             }
             it("when dbVersion >= V9_6 and cpus != null then maxParallelWorkersPerGather = cpus / 2") {
                 val systemConfiguration = mockk<SystemConfiguration>()
-                forall(
+                forAll(
                         row(PostgresVersion.V9_6, 4),
                         row(PostgresVersion.V10, 6),
                         row(PostgresVersion.V11, 8),
@@ -40,7 +41,7 @@ class MaxParallelWorkersPerGatherTest() : DescribeSpec() {
             }
             it("when dbVersion >= V9_5 and cpus == null then maxParallelWorkersPerGather = 2") {
                 val systemConfiguration = mockk<SystemConfiguration>()
-                forall(
+                forAll(
                         row(PostgresVersion.V9_6, 2),
                         row(PostgresVersion.V10, 2),
                         row(PostgresVersion.V11, 2),

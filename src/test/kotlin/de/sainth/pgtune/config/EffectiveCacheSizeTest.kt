@@ -1,15 +1,16 @@
 package de.sainth.pgtune.config
 
-import io.kotlintest.data.forall
-import io.kotlintest.shouldBe
-import io.kotlintest.specs.DescribeSpec
-import io.kotlintest.tables.row
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.data.forAll
+import io.kotest.data.row
+import io.kotest.matchers.shouldBe
+import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class EffectiveCacheSizeTest() : DescribeSpec() {
+class EffectiveCacheSizeTest : DescribeSpec() {
 
     init {
         describe("EffectiveCacheSizeTest") {
@@ -24,7 +25,7 @@ class EffectiveCacheSizeTest() : DescribeSpec() {
                 val ram = Memory(16, SizeUnit.GB)
                 val result = ram.multiply(3).divide(4)
                 every { systemConfiguration.ram } returns ram
-                forall(
+                forAll(
                         row(DbApplication.WEB, result),
                         row(DbApplication.OLTP, result),
                         row(DbApplication.DATA_WAREHOUSE, result),

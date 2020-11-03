@@ -1,19 +1,20 @@
 package de.sainth.pgtune.config
 
-import io.kotlintest.data.forall
-import io.kotlintest.shouldBe
-import io.kotlintest.specs.DescribeSpec
-import io.kotlintest.tables.row
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.data.forAll
+import io.kotest.data.row
+import io.kotest.matchers.shouldBe
+import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class WalBuffersTest() : DescribeSpec() {
+class WalBuffersTest : DescribeSpec() {
 
     init {
         describe("WalBuffersTest") {
-            forall(
+            forAll(
                     row(Memory(1, SizeUnit.MB), Memory(32, SizeUnit.KB)),
                     row(Memory(1, SizeUnit.TB), Memory(16, SizeUnit.MB)),
                     row(Memory(100, SizeUnit.MB), Memory(3, SizeUnit.MB))

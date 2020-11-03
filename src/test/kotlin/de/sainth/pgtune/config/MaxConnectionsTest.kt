@@ -1,15 +1,16 @@
 package de.sainth.pgtune.config
 
-import io.kotlintest.data.forall
-import io.kotlintest.shouldBe
-import io.kotlintest.specs.DescribeSpec
-import io.kotlintest.tables.row
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.data.forAll
+import io.kotest.data.row
+import io.kotest.matchers.shouldBe
+import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class MaxConnectionsTest() : DescribeSpec() {
+class MaxConnectionsTest : DescribeSpec() {
 
     init {
         describe("MaxConnectionsTest") {
@@ -22,7 +23,7 @@ class MaxConnectionsTest() : DescribeSpec() {
         describe("if systemConfiguration.connections is null systemConfiguration.dbApplication.maxConnections will be used") {
             val systemConfiguration = mockk<SystemConfiguration>()
             every { systemConfiguration.connections } returns null
-            forall(
+            forAll(
                     row(DbApplication.WEB, DbApplication.WEB.maxConnections),
                     row(DbApplication.OLTP, DbApplication.OLTP.maxConnections),
                     row(DbApplication.DATA_WAREHOUSE, DbApplication.DATA_WAREHOUSE.maxConnections),

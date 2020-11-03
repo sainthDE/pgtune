@@ -1,13 +1,14 @@
 package de.sainth.pgtune.config
 
-import io.kotlintest.matchers.types.shouldBeTypeOf
-import io.kotlintest.specs.DescribeSpec
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.types.shouldBeTypeOf
+import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class PostgresConfigurationTest() : DescribeSpec() {
+class PostgresConfigurationTest : DescribeSpec() {
 
     init {
         describe("the resulting class depends on given dbVersion") {

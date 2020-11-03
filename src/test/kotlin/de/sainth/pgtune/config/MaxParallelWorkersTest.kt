@@ -1,16 +1,17 @@
 package de.sainth.pgtune.config
 
-import io.kotlintest.data.forall
-import io.kotlintest.shouldBe
-import io.kotlintest.shouldThrow
-import io.kotlintest.specs.DescribeSpec
-import io.kotlintest.tables.row
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+
+import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.data.forAll
+import io.kotest.data.row
+import io.kotest.matchers.shouldBe
+import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class MaxParallelWorkersTest() : DescribeSpec() {
+class MaxParallelWorkersTest : DescribeSpec() {
 
     init {
         describe("MaxParallelWorkersTest") {
@@ -27,7 +28,7 @@ class MaxParallelWorkersTest() : DescribeSpec() {
             }
             it("when dbVersion >= V10 and cpus != null then maxParallelWorkers = cpus") {
                 val systemConfiguration = mockk<SystemConfiguration>()
-                forall(
+                forAll(
                         row(PostgresVersion.V10, 3),
                         row(PostgresVersion.V11, 4),
                         row(PostgresVersion.V12, 5),
@@ -40,7 +41,7 @@ class MaxParallelWorkersTest() : DescribeSpec() {
             }
             it("when dbVersion >= V10 and cpus == null then maxParallelWorkers = 8") {
                 val systemConfiguration = mockk<SystemConfiguration>()
-                forall(
+                forAll(
                         row(PostgresVersion.V10, 8),
                         row(PostgresVersion.V11, 8),
                         row(PostgresVersion.V12, 8),

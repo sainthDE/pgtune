@@ -43,9 +43,9 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     kaptTest "io.micronaut:micronaut-inject-java"
-    testImplementation "io.micronaut.test:micronaut-test-kotlintest:2.2.1"
+    testImplementation "io.micronaut.test:micronaut-test-kotest:2.2.1"
     testImplementation "io.mockk:mockk:1.10.2"
-    testImplementation "io.kotlintest:kotlintest-runner-junit5:3.3.2"
+    testImplementation "io.kotest:kotest-runner-junit5-jvm:4.3.0"
 }
 
 test.classpath += configurations.developmentOnly

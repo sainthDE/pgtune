@@ -1,21 +1,22 @@
 package de.sainth.pgtune.config
 
-import io.kotlintest.data.forall
-import io.kotlintest.matchers.doubles.plusOrMinus
-import io.kotlintest.shouldBe
-import io.kotlintest.specs.DescribeSpec
-import io.kotlintest.tables.row
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+
+import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.data.forAll
+import io.kotest.data.row
+import io.kotest.matchers.doubles.plusOrMinus
+import io.kotest.matchers.shouldBe
+import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import io.mockk.every
 import io.mockk.mockk
 
 @MicronautTest
-class RandomPageCostTest() : DescribeSpec() {
+class RandomPageCostTest : DescribeSpec() {
 
     init {
         describe("RandomPageCostTest") {
             val systemConfiguration = mockk<SystemConfiguration>(relaxed = true)
-            forall(
+            forAll(
                     row(DataStorage.HDD, 4.0),
                     row(DataStorage.SSD, 1.1),
                     row(DataStorage.SAN, 1.1)
